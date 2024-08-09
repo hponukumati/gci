@@ -30,20 +30,24 @@ settings = load_settings()
 # Create the main window
 root = tk.Tk()
 root.title("Gesture to Application Mapper")
+root.geometry('800x300')
 
 app_paths = {i: tk.StringVar(value=settings[str(i)]) for i in range(1, 6)}
 
 # Create UI elements
 for i in range(1, 6):
-    label = tk.Label(root, text=f"Gesture {i} (1 Finger = {i}):")
-    label.grid(row=i, column=0, padx=10, pady=5, sticky='e')
-    
-    entry = tk.Entry(root, textvariable=app_paths[i], width=50)
-    entry.grid(row=i, column=1, padx=10, pady=5)
-    
-    button = tk.Button(root, text="Select Application", command=lambda i=i: select_application(i))
-    button.grid(row=i, column=2, padx=10, pady=5)
+    frame = tk.Frame(root)
+    frame.pack(fill='x', padx=10, pady=5)
 
-tk.Button(root, text="Save and Exit", command=save_and_exit).grid(row=6, column=1, pady=20)
+    label = tk.Label(frame, text=f"Gesture {i} (1 Finger = {i}):")
+    label.pack(side='left', padx=5)
+
+    entry = tk.Entry(frame, textvariable=app_paths[i], width=50)
+    entry.pack(side='left', padx=5)
+
+    button = tk.Button(frame, text="Select Application", command=lambda i=i: select_application(i))
+    button.pack(side='left', padx=5)
+
+tk.Button(root, text="Save and Exit", command=save_and_exit).pack(pady=20)
 
 root.mainloop()
