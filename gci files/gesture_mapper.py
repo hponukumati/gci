@@ -30,7 +30,7 @@ settings = load_settings()
 # Create the main window
 root = tk.Tk()
 root.title("Gesture to Application Mapper")
-root.geometry('800x300')
+
 
 app_paths = {i: tk.StringVar(value=settings[str(i)]) for i in range(1, 6)}
 
@@ -39,15 +39,17 @@ for i in range(1, 6):
     frame = tk.Frame(root)
     frame.pack(fill='x', padx=10, pady=5)
 
-    label = tk.Label(frame, text=f"Gesture {i} (1 Finger = {i}):")
-    label.pack(side='left', padx=5)
-
-    entry = tk.Entry(frame, textvariable=app_paths[i], width=50)
+    entry = tk.Entry(frame, textvariable=app_paths[i], width=0)
     entry.pack(side='left', padx=5)
 
-    button = tk.Button(frame, text="Select Application", command=lambda i=i: select_application(i))
+    button = tk.Button(frame, text=f"Select Application for Gesture {i}", command=lambda i=i: select_application(i))
     button.pack(side='left', padx=5)
 
-tk.Button(root, text="Save and Exit", command=save_and_exit).pack(pady=20)
+    frame.pack(anchor='center')  # Center the frame
+
+# Center the Save and Exit button
+save_button = tk.Button(root, text="Save and Exit", command=save_and_exit)
+save_button.pack(pady=20)
+save_button.pack(anchor='center')
 
 root.mainloop()
